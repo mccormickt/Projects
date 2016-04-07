@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Sales Rep Queue</title>
+</head>
+<body>
+	<h2>Queue</h2>
+	<table id="table1">
+		<tr>
+			<td>Rep 1</td>
+		</tr>
+		<tr>
+			<td>Rep 2</td>
+		</tr>
+		<tr>
+			<td>Rep 3</td>
+		</tr>
+		<tr>
+			<td>Rep 4</td>
+		</tr>
+	</table><br></br>
+	<label>New Member Name:</label><br>
+	<input id="newMember" type="text"></input>
+	<button onclick="addRep()">Add Member to Queue</button></br>
+		<h2>Assign</h2>
+		<label>Company Name:</label><br>
+		<input id="companyName" type="text"></input></br>
+		<label>Scheduler Name:</label><br>
+		<input id="schedulerName" type="text"></input></br>
+		<label>Meeting Date:</label><br>
+		<input id="meetingDate" type="text"></input></br>
+		<br></br>
+		<button onclick="updateQueue()">Submit</button>
+
+	<h2>Log</h2>
+	<table id="table2" style="width: 50%" border="1">
+		<tr>
+			<th>Rep</th>
+			<th>Scheduler</th>
+			<th>Company</th>
+			<th>Date of Meeting</th>
+			<th>Date Assigned</th>
+		</tr>
+	</table>
+</body>
+<script>
+		function updateQueue() {
+			var table = document.getElementById("table1");
+			var tempRow = table.rows[0].innerHTML;
+			table.deleteRow(0);
+			table.insertRow(table.rows.length);
+			var lastRow = table.rows[table.rows.length - 1];
+			var name = lastRow.insertCell(0);
+			name.innerHTML = tempRow;
+
+			var table2 = document.getElementById("table2");
+			table2.insertRow(table2.rows.length);
+			var row = table2.rows[table2.rows.length - 1];
+			var rep = row.insertCell(0);
+			rep.innerHTML = table.rows[table.rows.length - 1].innerHTML;
+			var scheduler = row.insertCell(1);
+			scheduler.innerHTML = document.getElementById("schedulerName").value;
+			var company = row.insertCell(2);
+			company.innerHTML = document.getElementById("companyName").value;
+			var meetingDate = row.insertCell(3);
+			meetingDate.innerHTML = document.getElementById("meetingDate").value;
+			var dateAssigned = row.insertCell(4);
+			dateAssigned.innerHTML = new Date();
+
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("PUT", "Sales Rep Queue.html", true);
+			xhttp.send();
+		}
+
+		function addRep() {
+			var table = document.getElementById("table1");
+			table.insertRow(table.rows.length);
+			var newMember = table.rows[table.rows.length - 1].insertCell(0);
+			newMember.innerHTML = document.getElementById("newMember").value;
+		}
+</script>
+</html>
